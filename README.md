@@ -55,3 +55,20 @@ You can find installation instructions and releases there.
 
 4. Sends a notification via Telegram and Discord Webhook.
 
+
+# Setup:
+1. Screen coordinates like (chrome_random, firefox_random) define where pyautogui clicks on your screen  
+   Most likely you will need to adjust these for your own screen resolution and browser window positions.
+   
+   I’ve added a helper script to determine screen coordinates used by pyautogui.
+   To compile it, run this command in the folder where you cloned this repository:
+
+   pyinstaller Pyautogui-coordinates_locator.py
+
+2. To set up notifications, adjust the webhook URLs (Discord webhook, Telegram bot token, and chat ID) directly in the script 
+   before running.
+   Make sure to replace the placeholders with your actual values.
+
+3. To compile the script, run this command in the folder where you cloned this repository: 
+
+   pyinstaller Prolific_Study_Fetcher.py--noconsole
