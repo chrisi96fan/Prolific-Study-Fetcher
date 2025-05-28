@@ -65,7 +65,10 @@ You can find installation instructions and releases there.
 
    pyinstaller Pyautogui-coordinates_locator.py
 
-2. To set up notifications, adjust the webhook URLs (Discord webhook, Telegram bot token, and chat ID) directly in the script 
+2. Manually set up parameters such as the full paths to your Chrome and Firefox browser executables, and to the tesseract.exe 
+   on your system. Adjust these paths directly in the script before running.
+
+3. To set up notifications, adjust the webhook URLs (Discord webhook, Telegram bot token, and chat ID) directly in the script 
    before running.
    Make sure to replace the placeholders with your actual values.
 
