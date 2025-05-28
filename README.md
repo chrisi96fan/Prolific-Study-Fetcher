@@ -1,4 +1,35 @@
-Hello the goal of this program is to automatically open studies on the website prolific and reserve a spot with the help of ui automation.
-This is more meant as a personal project since some of the parameters are fairly customized (like the ui automation coordinates used with pyautogui) but everyone.
-The required libraries are stored in the requirements.txt file and can be installed with the follwoing command pip install -r requirements.txt   in a terminal window.
-The trigger for this script is a simple task in the windows task scheduler
+# Prolific Study Fetcher
+
+Note: This is intended as a personal project. Some parameters—such as screen coordinates used with pyautogui—are customized for a specific setup and most likely won't work for other setups.
+
+Requirements: The required Python libraries are listed in the requirements.txt file. You can install them with:
+
+pip install -r requirements.txt
+
+Automation Setup (Windows)
+
+This script is triggered via a scheduled task in Windows Task Scheduler:
+
+1. Create a New Task named prolific.
+   
+2. Under the Trigger tab:
+
+Begin the task: On an event
+
+Log: Microsoft-Windows-PushNotifications-Platform/Operational
+
+Source: PushNotifications-Platform
+
+Event ID: 3052
+
+3. Under the Actions tab:
+
+Action: Start a program
+
+Program/script: Select the compiled Prolific_study_Fetcher.exe file
+
+Make sure that notifications for other apps/programs are disabled, except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
+
+
+This script uses the official Prolific Assistant and Prolific Studies Notifier by spin311.
+
