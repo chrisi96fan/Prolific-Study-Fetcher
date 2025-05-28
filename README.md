@@ -33,8 +33,8 @@ This script is triggered via a scheduled task in Windows Task Scheduler:
    Make sure that notifications for other apps/programs are disabled, except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
 
 
-This script uses the official Prolific Assistant and Prolific Studies Notifier by spin311. For a Firefox-compatible version of this extension, please see my fork:  
-[chrisi96fan/ProlificAutomaticStudies (Firefox fork)](https://github.com/chrisi96fan/ProlificAutomaticStudies)
+This script uses the official Prolific Assistant and Prolific Studies Notifier by spin311. 
+For a Firefox-compatible version of this extension, please see my fork: [chrisi96fan/ProlificAutomaticStudies](https://github.com/chrisi96fan/ProlificAutomaticStudies)
 
 You can find installation instructions and releases there.
 
