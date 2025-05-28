@@ -16,21 +16,21 @@ This script is triggered via a scheduled task in Windows Task Scheduler:
    
 2. Under the Trigger tab:
 
-Begin the task: On an event
+   Begin the task: On an event
 
-Log: Microsoft-Windows-PushNotifications-Platform/Operational
+   Log: Microsoft-Windows-PushNotifications-Platform/Operational
 
-Source: PushNotifications-Platform
+   Source: PushNotifications-Platform
 
-Event ID: 3052
+   Event ID: 3052
 
 3. Under the Actions tab:
 
-Action: Start a program
+   Action: Start a program
 
-Program/script: Select the compiled Prolific_study_Fetcher.exe file
+   Program/script: Select the compiled Prolific_study_Fetcher.exe file
 
-Make sure that notifications for other apps/programs are disabled, except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
+   Make sure that notifications for other apps/programs are disabled, except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
 
 
 This script uses the official Prolific Assistant and Prolific Studies Notifier by spin311.
