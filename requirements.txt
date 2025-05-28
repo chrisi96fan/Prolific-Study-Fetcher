@@ -1,0 +1,11 @@
+keyboard
+requests
+pyperclip
+pyautogui
+opencv-python
+mss
+Pillow
+numpy
+pytesseract
+
+# use pip install -r requirements.txt to install the required libraries
