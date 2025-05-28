@@ -8,6 +8,12 @@ The required Python libraries are listed in the requirements.txt file. You can i
 
 pip install -r requirements.txt
 
+# Tesseract OCR:
+
+This script uses the text recognition software tesseract ocr to join studies on the prolific dashboard.
+
+You can download it under [tesseract ocr](https://github.com/tesseract-ocr/tesseract)
+
 # Automation Setup (Windows)
 
 This script is triggered via a scheduled task in Windows Task Scheduler:
@@ -37,4 +43,15 @@ This script uses the official Prolific Assistant and Prolific Studies Notifier b
 For a Firefox-compatible version of this extension, please see my fork: [chrisi96fan/ProlificAutomaticStudies](https://github.com/chrisi96fan/ProlificAutomaticStudies)
 
 You can find installation instructions and releases there.
+
+
+# How it works:
+
+1. Detects notifications from Chrome/Firefox using Windows events.
+
+2. Opens study with the prolific assistant extensions and tries to join them.
+
+3. For studies appearing on the prolific dashboard, it uses the text recognition software tesseract ocr to locate the join button.
+
+4. Sends a notification via Telegram and Discord Webhook.
 
