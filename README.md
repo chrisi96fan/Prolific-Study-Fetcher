@@ -1,12 +1,14 @@
 # Prolific Study Fetcher
 
-Note: This is intended as a personal project. Some parameters—such as screen coordinates used with pyautogui—are customized for a specific setup and most likely won't work for other setups.
+Note: This is intended as a personal project. Some parameters like screen coordinates used with pyautogui are customized to my specific setup and most likely won't work for other setups.
 
-Requirements: The required Python libraries are listed in the requirements.txt file. You can install them with:
+# Requirements: 
+
+The required Python libraries are listed in the requirements.txt file. You can install them with:
 
 pip install -r requirements.txt
 
-Automation Setup (Windows)
+# Automation Setup (Windows)
 
 This script is triggered via a scheduled task in Windows Task Scheduler:
 
