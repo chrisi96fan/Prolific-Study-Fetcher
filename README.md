@@ -1,6 +1,6 @@
 # Prolific Study Fetcher
    
-A small script to automatically open study notification for prolific and join them.
+Script to automatically open study notification for prolific and join them.
 
 Note: This is intended as a personal project. Some parameters like screen coordinates used with pyautogui are customized to my specific setup and most likely won't work for other setups, at least for the main file Prolific_Study_Catcher.py which I am using myself.
 
