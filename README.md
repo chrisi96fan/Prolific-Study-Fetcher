@@ -2,6 +2,11 @@
    
 Script to automatically open study notification for prolific.com and join them.
 
+This script uses the official Prolific Assistant and Prolific Studies Notifier by spin311. 
+For a Firefox-compatible version of this extension, please see my fork: [chrisi96fan/ProlificAutomaticStudies](https://github.com/chrisi96fan/ProlificAutomaticStudies)
+
+You can find installation instructions and releases there.
+
 Note: This is intended as a personal project. Some parameters like screen coordinates used with pyautogui are customized to my specific setup and most likely won't work for other setups, at least for the main file Prolific_Study_Catcher.py which I am using myself.
 
 # Requirements: 
@@ -88,7 +93,3 @@ This script is triggered via a scheduled task in Windows Task Scheduler:
    Make sure that notifications for other apps/programs are disabled, except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
 
 
-   This script uses the official Prolific Assistant and Prolific Studies Notifier by spin311. 
-   For a Firefox-compatible version of this extension, please see my fork: [chrisi96fan/ProlificAutomaticStudies](https://github.com/chrisi96fan/ProlificAutomaticStudies)
-
-   You can find installation instructions and releases there.
