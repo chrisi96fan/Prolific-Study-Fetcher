@@ -32,7 +32,7 @@ You can download it under [tesseract ocr](https://github.com/tesseract-ocr/tesse
 1. Choose the file based on your browser and screen resolution.
 
    Screen coordinates like chrome_random and firefox_random define where PyAutoGUI clicks on your screen.  
-   Only the PyAutoGUI parameters in Prolific_Study_Fetcher_Chrome_1440p.py and Prolific_Study_Fetcher_Firefox_1080p.py have been tested. The parameters in the other files are roughly calculated but should generally work.
+   Only the PyAutoGUI parameters in Prolific_Study_Fetcher.py, Prolific_Study_Fetcher_Chrome_1440p.py and Prolific_Study_Fetcher_Firefox_1080p.py have been tested. The parameters in the other files are roughly calculated but should generally work.
    You still need to adjust the value for firefox_extension manually.
    Use the Pyautogui-coordinates_locator.py script to find the x and y values by hovering over the Prolific Assistant extension icon after pinning it in Firefox.
    To compile the locator script, run the following command in the folder where you cloned the repository:
