@@ -117,9 +117,9 @@ With this setup, the script will only run when the monitor is powered off, preve
    schtasks /Change /TN \prolific /Disable
    exit
 
-3. Create two new task in the windows task scheduler with elevated permissions named Enable Prolific and Disable Prolific
+3.  In Windows Task Scheduler, create two new tasks:
 
-   In Windows Task Scheduler, create two new tasks:
+
       Enable Prolific Task:
       
       Begin the task: On an event
