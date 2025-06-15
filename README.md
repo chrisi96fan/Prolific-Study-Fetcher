@@ -93,3 +93,64 @@ This script is triggered via a scheduled task in Windows Task Scheduler:
    Make sure that notifications for other apps/programs are disabled, except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
 
 
+# Extended Setup
+
+By default, the script triggers on every browser notification even if you're actively using the PC.
+With this setup, the script will only run when the monitor is powered off, preventing unwanted triggers.
+
+1. Install [powereventprovider](https://github.com/hirschmann/powereventprovider)
+
+2. Create two batch files and save them in a permanent directory
+
+enable_prolific.bat:
+
+@Echo Off
+schtasks /Change /TN \prolific /Enable
+exit
+
+and
+
+disable_prolific.bat:
+
+
+@Echo Off
+schtasks /Change /TN \prolific /Disable
+exit
+
+
+
+3. Create two new task in the windows task scheduler with elevated permissions named Enable Prolific and Disable Prolific
+
+
+In Windows Task Scheduler, create two new tasks:
+
+   Enable Prolific Task:
+   
+   Begin the task: On an event
+   
+   Log: Application
+   
+   Source: PowerEventProvider
+   
+   Event ID: 5000 (Monitor OFF)
+   
+   Action: Start a program → Select enable_prolific.bat
+   
+   Run with highest privileges
+   
+   
+   Disable Prolific Task:
+   
+   Begin the task: On an event
+   
+   Log: Application
+   
+   Source: PowerEventProvider
+   
+   Event ID: 5001 (Monitor ON)
+   
+   Action: Start a program → Select disable_prolific.bat
+   
+   Run with highest privileges
+   
+
