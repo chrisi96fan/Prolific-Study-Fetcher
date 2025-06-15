@@ -72,23 +72,18 @@ You can download it under [tesseract ocr](https://github.com/tesseract-ocr/tesse
 
 This script is triggered via a scheduled task in Windows Task Scheduler:
 
-1. Create a New Task named prolific.
-   
-2. Under the Trigger tab:
+1. Create a new task named prolific.
 
-   Begin the task: On an event
-
-   Log: Microsoft-Windows-PushNotifications-Platform/Operational
-
-   Source: PushNotifications-Platform
-
-   Event ID: 3052
-
-3. Under the Actions tab:
-
-   Action: Start a program
-
-   Program/script: Select the compiled Prolific_study_Fetcher.exe file
+       Begin the task: On an event
+       
+       Log: Microsoft-Windows-PushNotifications-Platform/Operational
+       
+       Source: PushNotifications-Platform
+       
+       Event ID: 3052
+       
+       Action: Start a program → Select the compiled Prolific_study_Fetcher.exe file
+       
 
    Make sure that notifications for other apps/programs are disabled, except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
 
@@ -102,7 +97,7 @@ With this setup, the script will only run when the monitor is powered off, preve
 
 2. Create two batch files and save them in a permanent directory
 
-   enable_prolific.bat:
+   enable_prolific.bat
       
          @Echo Off
          schtasks /Change /TN \prolific /Enable
@@ -110,7 +105,7 @@ With this setup, the script will only run when the monitor is powered off, preve
       
    and
    
-   disable_prolific.bat:
+   disable_prolific.bat
    
          @Echo Off
          schtasks /Change /TN \prolific /Disable
@@ -118,7 +113,7 @@ With this setup, the script will only run when the monitor is powered off, preve
 
 3.  In Windows Task Scheduler, create two new tasks:
 
-      Enable Prolific:
+      Enable Prolific
       
          Begin the task: On an event
          
@@ -132,7 +127,7 @@ With this setup, the script will only run when the monitor is powered off, preve
          
          Run with highest privileges
 
-      Disable Prolific:
+      Disable Prolific
       
          Begin the task: On an event
          
