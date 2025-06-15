@@ -85,7 +85,7 @@ This script is triggered via a scheduled task in Windows Task Scheduler:
        Action: Start a program → Select the compiled Prolific_study_Fetcher.exe file
        
 
-   Make sure that notifications for other apps/programs are disabled, except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
+2. Disable notifications for other apps/programs except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
 
 
 # Extended Setup
