@@ -119,7 +119,6 @@ With this setup, the script will only run when the monitor is powered off, preve
 
 3.  In Windows Task Scheduler, create two new tasks:
 
-
       Enable Prolific:
       
       Begin the task: On an event
@@ -133,11 +132,6 @@ With this setup, the script will only run when the monitor is powered off, preve
       Action: Start a program → Select enable_prolific.bat
       
       Run with highest privileges
- 
-
-
-
-
 
       Disable Prolific:
       
