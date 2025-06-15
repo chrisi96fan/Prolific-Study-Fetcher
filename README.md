@@ -122,35 +122,37 @@ With this setup, the script will only run when the monitor is powered off, preve
 3. Create two new task in the windows task scheduler with elevated permissions named Enable Prolific and Disable Prolific
 
 
-In Windows Task Scheduler, create two new tasks:
+   In Windows Task Scheduler, create two new tasks:
 
-   Enable Prolific Task:
    
-   Begin the task: On an event
-   
-   Log: Application
-   
-   Source: PowerEventProvider
-   
-   Event ID: 5000 (Monitor OFF)
-   
-   Action: Start a program → Select enable_prolific.bat
-   
-   Run with highest privileges
-   
-   
-   Disable Prolific Task:
-   
-   Begin the task: On an event
-   
-   Log: Application
-   
-   Source: PowerEventProvider
-   
-   Event ID: 5001 (Monitor ON)
-   
-   Action: Start a program → Select disable_prolific.bat
-   
-   Run with highest privileges
-   
+      Enable Prolific Task:
+      
+      Begin the task: On an event
+      
+      Log: Application
+      
+      Source: PowerEventProvider
+      
+      Event ID: 5000 (Monitor OFF)
+      
+      Action: Start a program → Select enable_prolific.bat
+      
+      Run with highest privileges
+      
+
+
+      Disable Prolific Task:
+      
+      Begin the task: On an event
+      
+      Log: Application
+      
+      Source: PowerEventProvider
+      
+      Event ID: 5001 (Monitor ON)
+      
+      Action: Start a program → Select disable_prolific.bat
+      
+      Run with highest privileges
+      
 
