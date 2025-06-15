@@ -13,7 +13,7 @@ Note: This is intended as a personal project. Some parameters like screen coordi
 
 The required Python libraries are listed in the requirements.txt file. You can install them with:
 
-pip install -r requirements.txt
+      pip install -r requirements.txt
 
 # Tesseract OCR:
 
@@ -72,7 +72,7 @@ You can download it under [tesseract ocr](https://github.com/tesseract-ocr/tesse
 
 This script is triggered via a scheduled task in Windows Task Scheduler:
 
-1. Create a new task named prolific.
+1. Create a new task named prolific
 
        Begin the task: On an event
        
@@ -111,7 +111,7 @@ With this setup, the script will only run when the monitor is powered off, preve
          schtasks /Change /TN \prolific /Disable
          exit
 
-3.  In Windows Task Scheduler, create two new tasks:
+3.  In Windows Task Scheduler, create two new tasks
 
       Enable Prolific
       
