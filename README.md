@@ -102,20 +102,20 @@ With this setup, the script will only run when the monitor is powered off, preve
 
 2. Create two batch files and save them in a permanent directory
 
-enable_prolific.bat:
-
-@Echo Off
-schtasks /Change /TN \prolific /Enable
-exit
-
-and
-
-disable_prolific.bat:
-
-
-@Echo Off
-schtasks /Change /TN \prolific /Disable
-exit
+   enable_prolific.bat:
+   
+   @Echo Off
+   schtasks /Change /TN \prolific /Enable
+   exit
+   
+   and
+   
+   disable_prolific.bat:
+   
+   
+   @Echo Off
+   schtasks /Change /TN \prolific /Disable
+   exit
 
 
 
