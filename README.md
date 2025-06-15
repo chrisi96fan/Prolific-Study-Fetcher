@@ -134,6 +134,11 @@ With this setup, the script will only run when the monitor is powered off, preve
       
       Run with highest privileges
  
+
+
+
+
+
       Disable Prolific:
       
       Begin the task: On an event
