@@ -1,6 +1,11 @@
 # Prolific Study Fetcher
    
-A small script to automatically open study notification for prolific and join them.
+Script to automatically open study notification for prolific.com and join them.
+
+This script uses the official Prolific Assistant and Prolific Studies Notifier by spin311. 
+For a Firefox-compatible version of this extension, please see my fork: [chrisi96fan/ProlificAutomaticStudies](https://github.com/chrisi96fan/ProlificAutomaticStudies)
+
+You can find installation instructions and releases there.
 
 Note: This is intended as a personal project. Some parameters like screen coordinates used with pyautogui are customized to my specific setup and most likely won't work for other setups, at least for the main file Prolific_Study_Catcher.py which I am using myself.
 
@@ -8,7 +13,7 @@ Note: This is intended as a personal project. Some parameters like screen coordi
 
 The required Python libraries are listed in the requirements.txt file. You can install them with:
 
-pip install -r requirements.txt
+      pip install -r requirements.txt
 
 # Tesseract OCR:
 
@@ -32,7 +37,7 @@ You can download it under [tesseract ocr](https://github.com/tesseract-ocr/tesse
 1. Choose the file based on your browser and screen resolution.
 
    Screen coordinates like chrome_random and firefox_random define where PyAutoGUI clicks on your screen.  
-   Only the PyAutoGUI parameters in Prolific_Study_Fetcher_Chrome_1440p.py and Prolific_Study_Fetcher_Firefox_1080p.py have been tested. The parameters in the other files are roughly calculated but should generally work.
+   Only the PyAutoGUI parameters in Prolific_Study_Fetcher.py, Prolific_Study_Fetcher_Chrome_1440p.py and Prolific_Study_Fetcher_Firefox_1080p.py have been tested. The parameters in the other files are roughly calculated but should generally work.
    You still need to adjust the value for firefox_extension manually.
    Use the Pyautogui-coordinates_locator.py script to find the x and y values by hovering over the Prolific Assistant extension icon after pinning it in Firefox.
    To compile the locator script, run the following command in the folder where you cloned the repository:
@@ -67,28 +72,73 @@ You can download it under [tesseract ocr](https://github.com/tesseract-ocr/tesse
 
 This script is triggered via a scheduled task in Windows Task Scheduler:
 
-1. Create a New Task named prolific.
+1. Create a new task named prolific
+
+       Begin the task: On an event
+       
+       Log: Microsoft-Windows-PushNotifications-Platform/Operational
+       
+       Source: PushNotifications-Platform
+       
+       Event ID: 3052
+       
+       Action: Start a program → Select the compiled Prolific_study_Fetcher.exe file
+       
+
+2. Disable notifications for other apps/programs except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
+
+
+# Extended Setup
+
+By default, the script triggers on every browser notification even if you're actively using the PC.
+With this setup, the script will only run when the monitor is powered off, preventing unwanted triggers.
+
+1. Install [powereventprovider](https://github.com/hirschmann/powereventprovider)
+
+2. Create two batch files and save them in a permanent directory
+
+   enable_prolific.bat
+      
+         @Echo Off
+         schtasks /Change /TN \prolific /Enable
+         exit
+      
+   and
    
-2. Under the Trigger tab:
+   disable_prolific.bat
+   
+         @Echo Off
+         schtasks /Change /TN \prolific /Disable
+         exit
 
-   Begin the task: On an event
+3.  In Windows Task Scheduler, create two new tasks
 
-   Log: Microsoft-Windows-PushNotifications-Platform/Operational
+      Enable Prolific
+      
+         Begin the task: On an event
+         
+         Log: Application
+         
+         Source: PowerEventProvider
+         
+         Event ID: 5000 (Monitor OFF)
+         
+         Action: Start a program → Select enable_prolific.bat
+         
+         Run with highest privileges
 
-   Source: PushNotifications-Platform
+      Disable Prolific
+      
+         Begin the task: On an event
+         
+         Log: Application
+         
+         Source: PowerEventProvider
+         
+         Event ID: 5001 (Monitor ON)
+         
+         Action: Start a program → Select disable_prolific.bat
+         
+         Run with highest privileges
+      
 
-   Event ID: 3052
-
-3. Under the Actions tab:
-
-   Action: Start a program
-
-   Program/script: Select the compiled Prolific_study_Fetcher.exe file
-
-   Make sure that notifications for other apps/programs are disabled, except for Chrome and Firefox. This ensures that only browser-based notifications trigger the script.
-
-
-   This script uses the official Prolific Assistant and Prolific Studies Notifier by spin311. 
-   For a Firefox-compatible version of this extension, please see my fork: [chrisi96fan/ProlificAutomaticStudies](https://github.com/chrisi96fan/ProlificAutomaticStudies)
-
-   You can find installation instructions and releases there.
