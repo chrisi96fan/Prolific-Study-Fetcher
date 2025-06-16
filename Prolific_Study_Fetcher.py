@@ -380,21 +380,21 @@ if len(study_url) > len(prolific_404):
                 chrome_send_message = True
 
 
-        
-        time.sleep(0.2)
-        pyautogui.click(*firefox_random)
-        content = get_content()
-        result, places = check_content(content)
-        if result and chrome_send_message == False:
-            send_notification(result, places)
-        if result == "places":
-            browser = "firefox"
-            join_buttons_browser(6, browser)
-            reload_browser(browser)
+        if chrome_send_message == False:
+            time.sleep(0.2)
+            pyautogui.click(*firefox_random)
             content = get_content()
-            result,places = check_content(content)
-            if result == "joined" and chrome_send_message == False:
+            result, places = check_content(content)
+            if result:
                 send_notification(result, places)
+            if result == "places":
+                browser = "firefox"
+                join_buttons_browser(6, browser)
+                reload_browser(browser)
+                content = get_content()
+                result,places = check_content(content)
+                if result == "joined" and chrome_send_message == False:
+                    send_notification(result, places)
 
 
  # this part is for joining studies that show up on the prolific dashboard page
