@@ -402,7 +402,7 @@ elif study_url == starting_page:
     chrome_url = ""
     time.sleep(0.2)
     pyautogui.click(*chrome_random)
-    # changes the browser tab to the prolific dashboard in chrome, failsafe to not get stuck in a inifite loop
+    # changes the browser tab to the prolific dashboard in chrome, failsafe to not get stuck in an inifite loop
     while chrome_url != prolific_dashboard and chrome_failsafe < 20:
         chrome_url = get_url()
         urls_chrome.append(chrome_url)
