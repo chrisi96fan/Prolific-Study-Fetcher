@@ -275,10 +275,36 @@ def send_notification(result,places = None):
     else:
         pass
 
+# changes the browser tab to the prolific dashboard
 
+def change_tab(browser):
+    if browser == "chrome":
+        chrome_url = ""
+        time.sleep(0.2)
+        pyautogui.click(*chrome_random)
+        # changes the browser tab to the prolific dashboard in chrome, failsafe to not get stuck in an inifite loop
+        while chrome_url != prolific_dashboard and chrome_failsafe < 20:
+            chrome_url = get_url()
+            urls_chrome.append(chrome_url)
+            chrome_failsafe += 1
+            if chrome_url != prolific_dashboard:
+                keyboard.press_and_release("ctrl + shift + tab")
 
+        return urls_chrome, chrome_url
+    elif browser == "firefox":
+        firefox_url = ""
+        time.sleep(0.1)
+        chrome.open_new_tab(starting_page)
+        time.sleep(0.2)       
+        pyautogui.click(*firefox_random)
+        while firefox_url != prolific_dashboard and firefox_failsafe < 20:
+            firefox_url = get_url()
+            urls_firefox.append(firefox_url)
+            firefox_failsafe += 1
+            if firefox_url != prolific_dashboard:
+                keyboard.press_and_release("ctrl + shift + tab")
 
-
+        return urls_firefox, firefox_url
 
 
 
@@ -398,17 +424,10 @@ if len(study_url) > len(prolific_404):
 
 
  # this part is for joining studies that show up on the prolific dashboard page
+ 
 elif study_url == starting_page:
-    chrome_url = ""
-    time.sleep(0.2)
-    pyautogui.click(*chrome_random)
-    # changes the browser tab to the prolific dashboard in chrome, failsafe to not get stuck in an inifite loop
-    while chrome_url != prolific_dashboard and chrome_failsafe < 20:
-        chrome_url = get_url()
-        urls_chrome.append(chrome_url)
-        chrome_failsafe += 1
-        if chrome_url != prolific_dashboard:
-            keyboard.press_and_release("ctrl + shift + tab")
+    browser = "chrome"
+    change_tab(browser)
     
     
     time.sleep(0.2)
@@ -430,18 +449,8 @@ elif study_url == starting_page:
 
     # the study did not appear on the dashboard in chrome, repeating the process in firefox
     if not found_midpoint_chrome:
-        firefox_url = ""
-        time.sleep(0.1)
-        chrome.open_new_tab(starting_page)
-        time.sleep(0.2)       
-        pyautogui.click(*firefox_random)
-        while firefox_url != prolific_dashboard and firefox_failsafe < 20:
-            firefox_url = get_url()
-            urls_firefox.append(firefox_url)
-            firefox_failsafe += 1
-            if firefox_url != prolific_dashboard:
-                keyboard.press_and_release("ctrl + shift + tab")
-        
+        browser = "firefox"
+        change_tab(browser)
         time.sleep(0.5)
         pyautogui.click(*firefox_random)
         time.sleep(0.1)
