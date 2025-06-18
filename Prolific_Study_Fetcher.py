@@ -312,9 +312,11 @@ def change_tab(browser):
 # main script starts here
 
 # # opens an empty page in both browsers for url comparison
+
 chrome, firefox = open_browser()
 
 # opens the study inside of the prolific assistant extension
+
 time.sleep(0.5) 
 extension_click()
 
@@ -325,6 +327,7 @@ if len(study_url) > len(prolific_404):
     
 
     # spots possible errors in the study url and repeats the whole process 
+
     if error in study_url or error_2 in study_url or len(study_url) > 300:
         extension_click()
         time.sleep(2)
@@ -351,6 +354,7 @@ if len(study_url) > len(prolific_404):
     firefox_url = get_url()
     
     # if the study was opened in chrome, searches the page for keywords, sends out notifications
+
     if len(chrome_url) > len(firefox_url):
         time.sleep(0.1)
         pyautogui.click(*chrome_random)
@@ -368,6 +372,7 @@ if len(study_url) > len(prolific_404):
                 send_notification(result, places)
 
     # same as before, but the study was openend in firefox
+
     elif len(firefox_url) > len(chrome_url):
         time.sleep(0.1)
         pyautogui.click(*firefox_random) 
@@ -387,6 +392,7 @@ if len(study_url) > len(prolific_404):
                 send_notification(result, places)
 
     # on a rare occassion the study opens in both chrome and firefox, this part deals with it
+
     else:
         chrome_send_message = False
         time.sleep(0.2)
@@ -439,6 +445,7 @@ elif study_url == starting_page:
     keyboard.press_and_release("page down")
     
     # calls the text recognition function to search for the join study button on the dashboard page
+
     midpoint_chrome = locate_join_button()
     
     if midpoint_chrome:
@@ -449,6 +456,7 @@ elif study_url == starting_page:
         found_midpoint_chrome = True
 
     # the study did not appear on the dashboard in chrome, repeating the process in firefox
+
     if not found_midpoint_chrome:
         browser = "firefox"
         change_tab(browser)
@@ -470,7 +478,8 @@ elif study_url == starting_page:
             found_midpoint_firefox = True
 
 
-    # if a button was found, checks if joining was succesfull and sends notification     
+    # if a button was found, checks if joining was succesfull and sends notification
+         
     if found_midpoint_chrome or found_midpoint_firefox :
         time.sleep(1)
         chrome.open_new_tab(prolific_submissions)
@@ -504,6 +513,7 @@ elif study_url == starting_page:
             keyboard.press_and_release("ctrl + w")     
     
     # if no dashboard page was found, opens a new one in the browser
+
     if prolific_dashboard not in urls_chrome:
         chrome.open_new_tab(prolific_dashboard)
     if not found_midpoint_chrome and prolific_dashboard not in urls_firefox:
@@ -514,6 +524,7 @@ elif study_url == starting_page:
 
  # due to a bug in the prolfic extension, for a short peroid of time every opened study lead to a faulty 404 error page
  # this part deals with this rare case, as studies show up on a newly opened dashboard page instead
+
 elif study_url == prolific_404:
 
     chrome.open_new_tab(prolific_dashboard)
