@@ -13,12 +13,6 @@ import numpy as np
 import pytesseract
 
 
-# pyautogui parameters 
-
-pyautogui.PAUSE = 0
-pyautogui.FAILSAFE = False
-
-
 # various variables needed for the script to function properly
 
 starting_page = "https://example.com/"
@@ -63,6 +57,10 @@ target_text_1 = "take"
 target_text_2 = "part"
 
 
+# pyautogui parameters 
+
+pyautogui.PAUSE = 0
+pyautogui.FAILSAFE = False
 
 
 # pyautogui coordinates for a 1440p main and 1080p secondary monitor
@@ -148,6 +146,8 @@ def join_buttons_browser(loops, browser):
                 pyautogui.click(*firefox_ai) 
                 time.sleep(1)
 
+# reloads a browser page
+
 def reload_browser(browser):
     time.sleep(0.2)
     if browser == "chrome":
@@ -158,7 +158,7 @@ def reload_browser(browser):
     keyboard.press_and_release("F5")  
     time.sleep(4)
 
-# compares urls, sends notification with study url via telegram/discord and tries to join
+# compares urls, sends notification with study url via telegram/discord and tries to join it
 
 def join_study():
 
@@ -231,6 +231,7 @@ def locate_join_button():
 
 
 # initializes chrome and firefox browser  
+
 def open_browser():
     webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(pth_chrome))
     chrome = webbrowser.get('chrome')
@@ -310,7 +311,7 @@ def change_tab(browser):
 
 # main script starts here
 
-# # opens an empty page to focus both browsers and for url comparison
+# # opens an empty page in both browsers for url comparison
 chrome, firefox = open_browser()
 
 # opens the study inside of the prolific assistant extension
@@ -318,7 +319,7 @@ time.sleep(0.5)
 extension_click()
 
 time.sleep(2)
-study_url = join_study() # compares urls, sends notification with study url via telegram/discord and tries to join them by clicking on the join buttons
+study_url = join_study()
 if len(study_url) > len(prolific_404):
     click_all_browsers_join_buttons(2)
     
@@ -349,7 +350,7 @@ if len(study_url) > len(prolific_404):
     pyautogui.click(*firefox_random) 
     firefox_url = get_url()
     
-    # the study page was opened in chrome, scans the page content for keywords, sends out notifications
+    # if the study was opened in chrome, searches the page for keywords, sends out notifications
     if len(chrome_url) > len(firefox_url):
         time.sleep(0.1)
         pyautogui.click(*chrome_random)
@@ -424,7 +425,7 @@ if len(study_url) > len(prolific_404):
 
 
  # this part is for joining studies that show up on the prolific dashboard page
- 
+
 elif study_url == starting_page:
     browser = "chrome"
     change_tab(browser)
@@ -469,7 +470,7 @@ elif study_url == starting_page:
             found_midpoint_firefox = True
 
 
-    # if a button was found, checks page if joining was succesfull and sends notification     
+    # if a button was found, checks if joining was succesfull and sends notification     
     if found_midpoint_chrome or found_midpoint_firefox :
         time.sleep(1)
         chrome.open_new_tab(prolific_submissions)
@@ -511,7 +512,7 @@ elif study_url == starting_page:
     
 
 
- # due to a bug in the prolfic assistant extension for a short peroid of time every opened study lead to a faulty 404 error page
+ # due to a bug in the prolfic extension, for a short peroid of time every opened study lead to a faulty 404 error page
  # this part deals with this rare case, as studies show up on a newly opened dashboard page instead
 elif study_url == prolific_404:
 
