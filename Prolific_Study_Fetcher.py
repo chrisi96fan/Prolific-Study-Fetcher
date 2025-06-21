@@ -13,7 +13,7 @@ import numpy as np
 import pytesseract
 
 
-# various variables needed for the script to function properly
+# initialising variables
 
 starting_page = "https://example.com/"
 prolific_dashboard = "https://app.prolific.com/studies"
