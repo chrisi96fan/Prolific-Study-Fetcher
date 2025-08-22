@@ -1,5 +1,6 @@
 import keyboard
 import time
+import random
 import requests
 import pyperclip
 import pyautogui, sys
@@ -127,7 +128,7 @@ def click_all_browsers_join_buttons(loops):
         pyautogui.click(*firefox_ai)
         pyautogui.click(*firefox_automatic) 
         pyautogui.click(*chrome_not_automatic)
-        time.sleep(1)
+        time.sleep(random.uniform(1, 1.5))
 
 
 # clicks on study joining buttons in one browser
@@ -138,13 +139,13 @@ def join_buttons_browser(loops, browser):
                 pyautogui.click(*chrome_automatic) 
                 pyautogui.click(*chrome_not_automatic)  
                 pyautogui.click(*chrome_ai) 
-                time.sleep(1)
+                time.sleep(random.uniform(1, 1.5))
         elif browser == "firefox":
             for i in range(loops):
                 pyautogui.click(*firefox_automatic) 
                 pyautogui.click(*firefox_not_automatic)  
                 pyautogui.click(*firefox_ai) 
-                time.sleep(1)
+                time.sleep(random.uniform(1, 1.5))
 
 # reloads a browser page
 
@@ -186,7 +187,7 @@ def join_study():
         time.sleep(0.1)
         click_all_browsers_join_buttons(1)
 
-    return study_url
+    return study_url, chrome_url, firefox_url
 
 
 # uses the text recognition software tesseract ocr to search for keywords on the screen to join studies showing up on the prolific dashboard
@@ -321,28 +322,181 @@ time.sleep(0.5)
 extension_click()
 
 time.sleep(2)
-study_url = join_study()
+study_url, chrome_url, firefox_url = join_study()
 if len(study_url) > len(prolific_404):
     click_all_browsers_join_buttons(2)
     
 
-    # spots possible errors in the study url and repeats the whole process 
+# the user seems to get logged out of the prolific assistant extension every 24 hours, this handles it
+    if "login" in study_url:
+        if "login" in chrome_url:
+            pyautogui.click(*chrome_random)
+            time.sleep(1)
+            keyboard.press_and_release("alt + F4")
+            time.sleep(0.2)
+            pyautogui.click(*firefox_random)
+            time.sleep(0.2)
+            new_firefox_url = get_url
+            if new_firefox_url > prolific_dashboard:
+                requests.post(url, json={'text': new_firefox_url}, timeout=10)
+                content = get_content()
+                result, places = check_content(content)
+                if result:
+                    send_notification(result, places)
+                    chrome_send_message = True
+                if result == "joined": no_confirmation = False
+                if result == "places":
+                    browser = "firefox"
+                    join_buttons_browser(6, browser)      
+                    reload_browser(browser)
+                    content = get_content()
+                    result,places = check_content(content)
+                    if result == "joined":
+                        send_notification(result, places)
+                        chrome_send_message = True
+                        no_confirmation = False
 
-    if error in study_url or error_2 in study_url or len(study_url) > 300:
+
+        if "login" in firefox_url:
+            pyautogui.click(*firefox_random)
+            time.sleep(1)
+            keyboard.press_and_release("alt + F4")
+            time.sleep(0.2)
+            pyautogui.click(*chrome_random)
+            new_chrome_url = get_url
+            if new_chrome_url > prolific_dashboard:
+                requests.post(url, json={'text': new_chrome_url}, timeout=10)
+                time.sleep(0.2)
+                content = get_content()
+                result, places = check_content(content)
+                if result:
+                    send_notification(result, places)
+                    chrome_send_message = True
+                if result == "joined": no_confirmation = False
+                if result == "places":
+                    browser = "chrome"
+                    join_buttons_browser(6, browser)      
+                    reload_browser(browser)
+                    content = get_content()
+                    result,places = check_content(content)
+                    if result == "joined":
+                        send_notification(result, places)
+                        chrome_send_message = True
+                        no_confirmation = False
+        
+
+        if ((chrome_url == prolific_dashboard and firefox_url == prolific_dashboard) or ("login" in chrome_url and "login" in firefox_url)):
+            no_confirmation = False
+            chrome_url = ""
+            firefox_url = ""
+            time.sleep(0.2)
+            pyautogui.click(*chrome_random)
+            # changes the browser tab to the prolific dashboard in chrome, failsafe to not get stuck in a inifite loop
+            browser = "chrome"
+            change_tab(browser)
+            
+            
+            time.sleep(0.2)
+            pyautogui.click(*chrome_random)
+            time.sleep(0.1)
+            keyboard.press_and_release("page down")
+            time.sleep(0.1)
+            keyboard.press_and_release("page down")
+            
+            # calls the text recognition function to search for the join study button on the dashboard page
+            midpoint_chrome = locate_join_button()
+            
+            if midpoint_chrome:
+                time.sleep(0.2)
+                for i in range(7):
+                    pyautogui.click(*midpoint_chrome)
+                    time.sleep(random.uniform(1.4, 1.8))
+                found_midpoint_chrome = True
+
+            # the study did not appear on the dashboard in chrome, repeating the process in firefox
+            if not found_midpoint_chrome:
+                firefox_url = ""
+                time.sleep(0.1)
+                chrome.open_new_tab(starting_page)
+                time.sleep(0.2)       
+                pyautogui.click(*firefox_random)
+                browser = "firefox"
+                change_tab(browser)
+                
+                time.sleep(0.5)
+                pyautogui.click(*firefox_random)
+                time.sleep(0.1)
+                keyboard.press_and_release("page down")
+                time.sleep(0.1)
+                keyboard.press_and_release("page down")
+                time.sleep(0.2)
+                
+                midpoint_firefox = locate_join_button()
+                
+                if midpoint_firefox:
+                    time.sleep(0.2)
+                    for i in range(7):
+                        pyautogui.click(*midpoint_firefox)
+                        time.sleep(random.uniform(1.4, 1.8))
+                    found_midpoint_firefox = True
+
+
+            # if a button was found, checks page if joining was succesfull and sends notification     
+            if found_midpoint_chrome or found_midpoint_firefox :
+                time.sleep(1)
+                chrome.open_new_tab(prolific_submissions)
+                time.sleep(10)
+                pyautogui.click(*chrome_random)
+                content = get_content()
+                result, places = check_content(content)
+                if result == "joined":
+                    send_notification(result, places)
+                    time.sleep(0.2)
+                    pyautogui.click(*chrome_random)
+                    chrome_tesseract_url = get_url()
+                    requests.post(url, json={'text': chrome_tesseract_url + "\n" + "gamerkiste"}, timeout=10)
+                    # requests.post(webhook_url, json={"content": chrome_tesseract_url}, timeout=10)
+                elif result is None:
+                    requests.post(url, json={'text': "could not join study"}, timeout=10) 
+                    # requests.post(webhook_url, json={"content": "could not join study"}, timeout=10)
+                
+                time.sleep(1) 
+                for i in range(2):
+                    time.sleep(0.3) 
+                    pyautogui.click(*chrome_random)
+                    time.sleep(0.1) 
+                    keyboard.press_and_release("ctrl + w")  
+            else:
+                requests.post(url, json={'text': "no midpoint"}, timeout=10)
+                for i in range(2):
+                    time.sleep(0.3) 
+                    pyautogui.click(*chrome_random)
+                    time.sleep(0.1) 
+                    keyboard.press_and_release("ctrl + w")     
+
+
+
+
+            # if no dashboard page was found open in the browsers, this opens them again
+
+            if prolific_dashboard not in urls_chrome:
+                chrome.open_new_tab(prolific_dashboard)
+            if not found_midpoint_chrome and prolific_dashboard not in urls_firefox:
+                firefox.open_new_tab(prolific_dashboard)
+
+            time.sleep(0.3)
+            pyautogui.click(*chrome_random)
+            sys.exit
+
+
+   
+    
+    elif "callback" in study_url:
         extension_click()
         time.sleep(2)
         study_url = join_study()
         if len(study_url) > len(starting_page):
             click_all_browsers_join_buttons(4)
-        else: # opens the topmost notification in the windows notification center
-            time.sleep(1)
-            os.system("start ms-actioncenter:")
-            time.sleep(0.5)
-            pyautogui.click(x = 2365, y = 153)
-            pyautogui.click(*chrome_random)
-            time.sleep(2.5)
-
-            click_all_browsers_join_buttons(2)
             
 
     time.sleep(0.2)
@@ -512,8 +666,7 @@ elif study_url == starting_page:
             time.sleep(0.1) 
             keyboard.press_and_release("ctrl + w")     
     
-    # if no dashboard page was found, opens a new one in the browser
-
+    # if no dashboard page was found, opens a new one in the browser##
     if prolific_dashboard not in urls_chrome:
         chrome.open_new_tab(prolific_dashboard)
     if not found_midpoint_chrome and prolific_dashboard not in urls_firefox:
@@ -543,7 +696,7 @@ elif study_url == prolific_404:
         pyautogui.click(*midpoint_chrome)
         for i in range(6):
             pyautogui.click(*midpoint_chrome)
-            time.sleep(1.5)
+            time.sleep(random.uniform(1.4, 1.8))
         found_midpoint_chrome = True
         
     else:
