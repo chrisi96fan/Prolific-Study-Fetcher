@@ -3,7 +3,6 @@
 Script to automatically open study notification for prolific.com and join them.
 
 This script uses the official Prolific Assistant and Prolific Studies Notifier by spin311. 
-For a Firefox-compatible version of this extension, please see my fork: [chrisi96fan/ProlificAutomaticStudies](https://github.com/chrisi96fan/ProlificAutomaticStudies)
 
 You can find installation instructions and releases there.
 
