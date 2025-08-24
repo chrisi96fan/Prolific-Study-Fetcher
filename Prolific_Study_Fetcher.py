@@ -336,8 +336,8 @@ if len(study_url) > len(prolific_404):
             time.sleep(0.2)
             pyautogui.click(*firefox_random)
             time.sleep(0.2)
-            new_firefox_url = get_url
-            if new_firefox_url > prolific_dashboard:
+            new_firefox_url = get_url()
+            if len(new_firefox_url) > len(prolific_dashboard):
                 requests.post(url, json={'text': new_firefox_url}, timeout=10)
                 content = get_content()
                 result, places = check_content(content)
@@ -363,8 +363,8 @@ if len(study_url) > len(prolific_404):
             keyboard.press_and_release("alt + F4")
             time.sleep(0.2)
             pyautogui.click(*chrome_random)
-            new_chrome_url = get_url
-            if new_chrome_url > prolific_dashboard:
+            new_chrome_url = get_url()
+            if len(new_chrome_url) > len(prolific_dashboard):
                 requests.post(url, json={'text': new_chrome_url}, timeout=10)
                 time.sleep(0.2)
                 content = get_content()
