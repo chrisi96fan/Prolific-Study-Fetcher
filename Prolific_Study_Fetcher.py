@@ -385,7 +385,7 @@ if len(study_url) > len(prolific_404):
                         no_confirmation = False
         
 
-        if ((chrome_url == prolific_dashboard and firefox_url == prolific_dashboard) or ("login" in chrome_url and "login" in firefox_url)):
+        if ((new_firefox_url == prolific_dashboard or new_chrome_url == prolific_dashboard) or ("login" in chrome_url and "login" in firefox_url)):
             no_confirmation = False
             chrome_url = ""
             firefox_url = ""
