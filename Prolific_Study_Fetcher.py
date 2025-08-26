@@ -25,6 +25,8 @@ error_2 = "login"
 confirmation_check = "remaining"
 confirmation_check_2 = "reserved"
 study_full_check = "this study is now full"
+new_chrome_url = ""
+new_firefox_url = ""
 chrome_failsafe = 0
 firefox_failsafe = 0
 urls_chrome = []
@@ -330,7 +332,6 @@ if len(study_url) > len(prolific_404):
 # the user seems to get logged out of the prolific assistant extension every 24 hours, this handles it
     if "login" in study_url:
         if "login" in chrome_url:
-            new_chrome_url = ""
             pyautogui.click(*chrome_random)
             time.sleep(1)
             keyboard.press_and_release("alt + F4")
@@ -359,7 +360,6 @@ if len(study_url) > len(prolific_404):
 
 
         if "login" in firefox_url:
-            new_firefox_url = ""
             pyautogui.click(*firefox_random)
             time.sleep(1)
             keyboard.press_and_release("alt + F4")
