@@ -184,8 +184,11 @@ def join_study():
     else: study_url = firefox_url
 
     if len(study_url) < 300:
-        requests.post(url, json={"text": study_url}, timeout=10)
-        requests.post(webhook_url, json={"content": study_url}, timeout=10)
+        try:
+            requests.post(url, json={"text": study_url}, timeout=10)
+            requests.post(webhook_url, json={"content": study_url}, timeout=10)
+        except requests.exceptions.Timeout:
+            pass
         time.sleep(0.1)
         click_all_browsers_join_buttons(1)
 
@@ -267,15 +270,23 @@ def check_content(content):
 
 def send_notification(result,places = None):
     if result == "joined":
-        requests.post(url, json={"text": "joined study"}, timeout=10)
-        requests.post(webhook_url, json={"content": "joined study"}, timeout=10)
-
+        try:
+            requests.post(url, json={"text": "joined study"}, timeout=10)
+            requests.post(webhook_url, json={"content": "joined study"}, timeout=10)
+        except requests.exceptions.Timeout:
+            pass
     elif result == "full":
-        requests.post(url, json={"text": "study is full"}, timeout=10)  
-        requests.post(webhook_url, json={"content": "study is full"}, timeout=10)
+        try:
+            requests.post(url, json={"text": "study is full"}, timeout=10)  
+            requests.post(webhook_url, json={"content": "study is full"}, timeout=10)
+        except requests.exceptions.Timeout:
+            pass
     elif result ==  "places":
-        requests.post(url, json={"text": places}, timeout=10)
-        requests.post(webhook_url, json={"content": places}, timeout=10)
+        try:
+            requests.post(url, json={"text": places}, timeout=10)
+            requests.post(webhook_url, json={"content": places}, timeout=10)
+        except requests.exceptions.Timeout:
+            pass
     else:
         pass
 
@@ -340,7 +351,10 @@ if len(study_url) > len(prolific_404):
             time.sleep(0.2)
             new_firefox_url = get_url()
             if len(new_firefox_url) > len(prolific_dashboard):
-                requests.post(url, json={'text': new_firefox_url}, timeout=10)
+                try:
+                    requests.post(url, json={'text': new_firefox_url}, timeout=10)
+                except requests.exceptions.Timeout:
+                    pass
                 content = get_content()
                 result, places = check_content(content)
                 if result:
@@ -367,7 +381,10 @@ if len(study_url) > len(prolific_404):
             pyautogui.click(*chrome_random)
             new_chrome_url = get_url()
             if len(new_chrome_url) > len(prolific_dashboard):
-                requests.post(url, json={'text': new_chrome_url}, timeout=10)
+                try:
+                    requests.post(url, json={'text': new_chrome_url}, timeout=10)
+                except requests.exceptions.Timeout:
+                    pass
                 time.sleep(0.2)
                 content = get_content()
                 result, places = check_content(content)
@@ -456,11 +473,17 @@ if len(study_url) > len(prolific_404):
                     time.sleep(0.2)
                     pyautogui.click(*chrome_random)
                     chrome_tesseract_url = get_url()
-                    requests.post(url, json={'text': chrome_tesseract_url + "\n" + "gamerkiste"}, timeout=10)
-                    # requests.post(webhook_url, json={"content": chrome_tesseract_url}, timeout=10)
+                    try:
+                        requests.post(url, json={'text': chrome_tesseract_url + "\n" + "gamerkiste"}, timeout=10)
+                        requests.post(webhook_url, json={"content": chrome_tesseract_url}, timeout=10)
+                    except requests.exceptions.Timeout:
+                        pass
                 elif result is None:
-                    requests.post(url, json={'text': "could not join study"}, timeout=10) 
-                    # requests.post(webhook_url, json={"content": "could not join study"}, timeout=10)
+                    try:
+                        requests.post(url, json={'text': "could not join study"}, timeout=10) 
+                        requests.post(webhook_url, json={"content": "could not join study"}, timeout=10)
+                    except requests.exceptions.Timeout:
+                        pass
                 
                 time.sleep(1) 
                 for i in range(2):
@@ -469,7 +492,10 @@ if len(study_url) > len(prolific_404):
                     time.sleep(0.1) 
                     keyboard.press_and_release("ctrl + w")  
             else:
-                requests.post(url, json={'text': "no midpoint"}, timeout=10)
+                try:
+                    requests.post(url, json={'text': "no midpoint"}, timeout=10)
+                except requests.exceptions.Timeout:
+                    pass
                 for i in range(2):
                     time.sleep(0.3) 
                     pyautogui.click(*chrome_random)
@@ -648,11 +674,17 @@ elif study_url == starting_page:
             time.sleep(0.2)
             pyautogui.click(*chrome_random)
             chrome_tesseract_url = get_url()
-            requests.post(url, json={"text": chrome_tesseract_url}, timeout=10)
-            requests.post(webhook_url, json={"content": chrome_tesseract_url}, timeout=10)
+            try:
+                requests.post(url, json={"text": chrome_tesseract_url}, timeout=10)
+                requests.post(webhook_url, json={"content": chrome_tesseract_url}, timeout=10)
+            except requests.exceptions.Timeout:
+                pass
         elif result is None:
-            requests.post(url, json={"text": "could not join study"}, timeout=10) 
-            requests.post(webhook_url, json={"content": "could not join study"}, timeout=10)
+            try:
+                requests.post(url, json={"text": "could not join study"}, timeout=10) 
+                requests.post(webhook_url, json={"content": "could not join study"}, timeout=10)
+            except requests.exceptions.Timeout:
+                pass
         
         time.sleep(1) 
         for i in range(2):
@@ -661,7 +693,10 @@ elif study_url == starting_page:
             time.sleep(0.1) 
             keyboard.press_and_release("ctrl + w")  
     else:
-        requests.post(url, json={"text": "no midpoint"}, timeout=10)
+        try:
+            requests.post(url, json={"text": "no midpoint"}, timeout=10)
+        except requests.exceptions.Timeout:
+            pass
         for i in range(2):
             time.sleep(0.3) 
             pyautogui.click(*chrome_random)
@@ -702,7 +737,10 @@ elif study_url == prolific_404:
         found_midpoint_chrome = True
         
     else:
-        requests.post(url, json={"text": "no chrome midpoint"}, timeout=10) 
+        try:
+            requests.post(url, json={"text": "no chrome midpoint"}, timeout=10) 
+        except requests.exceptions.Timeout:
+            pass
         time.sleep(0.3) 
         pyautogui.click(*chrome_random)
         time.sleep(0.1) 
@@ -720,11 +758,17 @@ elif study_url == prolific_404:
             time.sleep(0.2)
             pyautogui.click(*chrome_random)
             chrome_tesseract_url = get_url()
-            requests.post(url, json={"text": chrome_tesseract_url}, timeout=10)
-            requests.post(webhook_url, json={"content": chrome_tesseract_url}, timeout=10)
+            try:
+                requests.post(url, json={"text": chrome_tesseract_url}, timeout=10)
+                requests.post(webhook_url, json={"content": chrome_tesseract_url}, timeout=10)
+            except requests.exceptions.Timeout:
+                pass
         elif result is None:
-            requests.post(url, json={"text": "could not join study"}, timeout=10) 
-            requests.post(webhook_url, json={"content": "could not join study"}, timeout=10)
+            try:
+                requests.post(url, json={"text": "could not join study"}, timeout=10) 
+                requests.post(webhook_url, json={"content": "could not join study"}, timeout=10)
+            except requests.exceptions.Timeout:
+                pass
         
         time.sleep(1) 
         for i in range(2):
