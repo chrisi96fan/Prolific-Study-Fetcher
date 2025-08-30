@@ -514,7 +514,7 @@ if len(study_url) > len(prolific_404):
 
             time.sleep(0.3)
             pyautogui.click(*chrome_random)
-            sys.exit
+            sys.exit() 
 
 
    
